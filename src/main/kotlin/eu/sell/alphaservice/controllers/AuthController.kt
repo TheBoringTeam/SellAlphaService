@@ -29,8 +29,12 @@ class AuthController @Autowired constructor(
         @Valid @RequestBody registerForm: RegisterUserForm, bindingResult: BindingResult,
         request: HttpServletRequest
     ): ResponseEntity<*> {
-        log.info("Starting registration process for username: ${registerForm.username}")
+        log.info("Starting registration process for username: ${registerForm.username}, email: ${registerForm.email}}")
 
-        TODO("Implement logic for registration")
+        // TODO: add validation for registration form
+
+        val user = webAccountService.registerAccount(registerForm)
+        //TODO: add mail send
+        return ResponseEntity.ok(user)
     }
 }

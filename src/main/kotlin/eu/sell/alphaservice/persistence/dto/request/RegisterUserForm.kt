@@ -20,6 +20,11 @@ class RegisterUserForm @JsonCreator constructor(
     @field:Size(message = "Password should be from 6 to 32 length", min = 6, max = 32)
     private val _password: String?,
 
+    @field:JsonProperty("public_name")
+    @field:NotEmpty(message = "Public name could not be empty")
+    @field:Size(message = "Public should be from 2 to 32 length", min = 2, max = 32)
+    private val _publicName: String?,
+
     @field:JsonProperty("email")
     @field:NotEmpty(message = "Email could not be empty")
     @field:Email(message = "Email should be properly formatted")
@@ -33,4 +38,9 @@ class RegisterUserForm @JsonCreator constructor(
 
     val email: String
         get() = _email!!
+
+    val publicName: String
+        get() = _publicName!!
+
+    fun getNewUserDTO(): NewUserDTO = NewUserDTO(this)
 }
