@@ -13,7 +13,7 @@ import org.springframework.web.client.RestTemplate
 class WebAccountService @Autowired constructor(private val restTemplate: RestTemplate) {
     private val log = LoggerFactory.getLogger(WebAccountService::class.java)
 
-    private val SERVICE_URL = "http://account-service"
+    private val SERVICE_URL = "http://account-service-dev"
 
     fun existsByEmail(email: String): Boolean {
         TODO("Implement exists by email functionality")
@@ -21,7 +21,7 @@ class WebAccountService @Autowired constructor(private val restTemplate: RestTem
 
     fun registerAccount(registrationForm: RegisterUserForm): SellUserDTO {
         val request = HttpEntity(registrationForm.getNewUserDTO())
-        val response = restTemplate.postForEntity("$SERVICE_URL/register", request, SellUserDTO::class.java)
+        val response = restTemplate.postForEntity("$SERVICE_URL/create", request, SellUserDTO::class.java)
         if (response.statusCode.isError || response.body == null) {
             throw Exception("Error during registration request")
         }
